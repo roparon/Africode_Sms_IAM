@@ -1,0 +1,58 @@
+{# djlint:off H030,H031 #}
+{% block doc -%}
+<!DOCTYPE html>
+<html{% block html_attribs %}{% endblock html_attribs %}>
+  {%- block html %}
+  <head>
+    {%- block head %}
+    <title>{% block title %}{{ title|default }}{% endblock title %}</title>
+
+    {%- block metas %}
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta charset="utf-8">
+    {%- endblock metas %}
+
+    {%- block head_scripts %}
+    {%- endblock head_scripts %}
+
+    {%- block styles %}
+      <!-- Bootstrap CSS -->
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+      <!-- Custom Styles -->
+      <style>
+        .fs-center { text-align: center; }
+        .fs-important { font-size: larger; font-weight: bold; }
+        .fs-gap { margin-top: 20px; }
+        .fs-div { margin: 4px; }
+        .fs-error-msg { color: rgb(247, 5, 5); }
+        .navbar .container-fluid {
+          justify-content: center;
+        }
+      </style>
+    {%- endblock styles %}
+    {%- endblock head %}
+  </head>
+  <body{% block body_attribs %}{% endblock body_attribs %}>
+    {% block body -%}
+      {% block navbar %}
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <!-- <a class="navbar-brand mx-auto" href="#">This Is A Simple Flask Application</a> -->
+        </div>
+      </nav>
+      {%- endblock navbar %}
+      <div class="container mt-5">
+        {% block content -%}
+        {%- endblock content %}
+      </div>
+
+      {% block scripts %}
+        <!-- Bootstrap Bundle with Popper -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+      {%- endblock scripts %}
+    {%- endblock body %}
+  </body>
+  {%- endblock html %}
+</html>
+{% endblock doc -%}
