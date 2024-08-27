@@ -7,11 +7,13 @@ from werkzeug.security import generate_password_hash
 from flask_security import roles_required
 from flask_wtf.csrf import CSRFProtect
 import config
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 Bootstrap5(app)
 app.config.from_object(config)
 db = SQLAlchemy(app)
+migrate = Migrate(app , db)
 
 roles_users = db.Table('roles_users',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
@@ -297,6 +299,26 @@ def delete_user(user_id):
     return redirect(url_for('view_users'))
 
 
+@app.route('/course/<int:course_id>')
+@login_required
+def view_course(course_id):
+    course = Course.query.get_or_404(course_id)
+    
+    # Logic based on user role
+    if current_user.has_role('Admin'):
+        return render_template('admin_course_details.html', course=course)
+    
+    elif current_user.has_role('Teacher'):
+        return render_template('teacher_course_details.html', course=course)
+    
+    elif current_user.has_role('Student'):
+        return render_template('student_course_details.html', course=course)
+    
+    else:
+        flash("You do not have permission to view this page.")
+        return redirect(url_for('index'))
+
+
 
 if __name__ == '__main__':
     with app.app_context():
@@ -330,4 +352,4 @@ if __name__ == '__main__':
             user_datastore.create_user(email='kips6011@gmail.com', password=hashed_password, roles=[user_datastore.find_role('Student')])
             db.session.commit()
     
-    app.run(debug=True)
+    app.run(port = 5001, debug=True)
