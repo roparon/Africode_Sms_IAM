@@ -352,4 +352,4 @@ if __name__ == '__main__':
             user_datastore.create_user(email='kips6011@gmail.com', password=hashed_password, roles=[user_datastore.find_role('Student')])
             db.session.commit()
     
-    app.run(port = 5001, debug=True)
+    app.run(port = 5002, debug=True)
