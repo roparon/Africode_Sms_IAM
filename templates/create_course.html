@@ -11,7 +11,7 @@
         <label for="teacher_id" class="form-label">Admin</label>
         <select class="form-select" id="teacher_id" name="teacher_id" required>
             {% for teacher in teachers %}
-            <option value="{{ teacher.id }}">{{ amin.email }}</option>
+            <option value="{{ teacher.id }}">{{ admin.email }}</option>
             {% endfor %}
         </select>
     </div>
