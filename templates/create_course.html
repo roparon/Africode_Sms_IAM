@@ -8,10 +8,10 @@
         <input type="text" class="form-control" id="name" name="name" required>
     </div>
     <div class="mb-3">
-        <label for="teacher_id" class="form-label">Admin</label>
+        <label for="teacher_id" class="form-label">Teacher</label>
         <select class="form-select" id="teacher_id" name="teacher_id" required>
             {% for teacher in teachers %}
-            <option value="{{ teacher.id }}">{{ admin.email }}</option>
+            <option value="{{ teacher.id }}">{{ teacher.email }}</option>
             {% endfor %}
         </select>
     </div>
