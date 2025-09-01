@@ -73,7 +73,6 @@ def courses():
         courses = Course.query.all()
     else:
         courses = Course.query.all()
-        #courses = [enrollment.course for enrollment in current_user.enrollments]
     return render_template('course.html', courses=courses)
 
 
@@ -127,7 +126,7 @@ def grade(enrollment_id):
         if grade:
             try:
                 grade_value = float(grade)
-                if 0 <= grade_value <= 100:  # Example range check
+                if 0 <= grade_value <= 100:
                     enrollment.grade = grade_value
                     db.session.commit()
                     flash('Grade submitted successfully')
@@ -172,10 +171,9 @@ def view_grades():
 
 @app.route('/manage_courses', methods=['GET', 'POST'])
 @login_required
-@roles_required('Admin')  # Ensure only teachers can access this route
+@roles_required('Admin')
 def manage_courses():
     if request.method == 'POST':
-        # Handle course creation or update
         course_id = request.form.get('course_id')
         course_name = request.form.get('course_name')
         
@@ -247,7 +245,6 @@ def add_user():
 
         )
 
-        # Assign the selected role
         role = Role.query.filter_by(name=role_name).first()
         if role:
             new_user.roles.append(role)
